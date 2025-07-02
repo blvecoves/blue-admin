@@ -1,1 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #161616;
+            color: #FFFFFF;
+        }
+        /* Style for the markdown-like content */
+        .prose {
+            color: #d1d5db; /* gray-300 */
+        }
+        .prose h1 {
+            color: #ffffff;
+            font-size: 2.25rem; /* 3xl */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #374151; /* gray-700 */
+            padding-bottom: 0.5rem;
+        }
+        .prose h3 {
+            color: #ffffff;
+            font-size: 1.5rem; /* xl */
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose p, .prose ul {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .prose ul {
+            list-style-position: inside;
+            list-style-type: disc;
+            padding-left: 1rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+        .prose strong {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .prose code {
+            background-color: #374151; /* gray-700 */
+            color: #e5e7eb; /* gray-200 */
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body class="antialiased">
 
+    <div class="container mx-auto max-w-4xl px-4 py-8 sm:py-12">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold" style="color: #76b1ff;">Blue Admin</h1>
+            <p class="text-lg text-gray-400 mt-2">Terms of Service & Privacy Policy</p>
+        </header>
+
+        <!-- Tabs -->
+        <div class="mb-6 border-b border-gray-800">
+            <nav class="flex -mb-px" aria-label="Tabs">
+                <button onclick="showTab('tos')" id="tos-tab" class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm" style="color: #76b1ff; border-color: #76b1ff;">
+                    Terms of Service
+                </button>
+                <button onclick="showTab('privacy')" id="privacy-tab" class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm text-gray-400 border-transparent hover:text-white hover:border-gray-600">
+                    Privacy Policy
+                </button>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <main class="bg-[#212121] p-6 sm:p-8 rounded-lg">
+            <!-- Terms of Service Content -->
+            <div id="tos" class="prose max-w-none">
+                <h1>Terms of Service for Blue Admin</h1>
+                <p><strong>Last Updated: July 2nd, 2025</strong></p>
+                <p>Welcome to Blue Admin! This document outlines the rules and guidelines for using our Roblox verification service ("the Service") within our Discord server ("the Server"). By joining the Server and initiating the verification process, you agree to these Terms of Service ("Terms").</p>
+                
+                <h3>1. Description of Service</h3>
+                <p>Our Service provides a verification system for Roblox users within our Server. Its primary functions are:</p>
+                <ul>
+                    <li><strong>Account Verification:</strong> Allowing you to verify ownership of your Roblox account.</li>
+                    <li><strong>Role Management:</strong> Automatically assigning and updating your roles within our Server to reflect your group roles and ranks on Roblox.</li>
+                    <li><strong>Nickname Management:</strong> Automatically setting your nickname within our Server to match your Roblox <code>Username</code> or <code>Display Name (@Username)</code>.</li>
+                    <li><strong>Administrative Commands:</strong> Allowing staff to take action on our games and Roblox group from the Server via our bot’s slash commands (utilizing Roblox’s Open Cloud services).</li>
+                </ul>
+                <p>This service is provided exclusively within our Server with possible integrations in our Roblox groups and games.</p>
+
+                <h3>2. User Responsibilities and Conduct</h3>
+                <p>By using the Service, you agree:</p>
+                <ul>
+                    <li>That you are a member of our Server and/or Roblox group in good-standing with moderation.</li>
+                    <li>To provide accurate information during the Roblox account verification process.</li>
+                    <li>To not use the Service for any malicious purpose, including attempting to impersonate another user or exploit vulnerabilities in the Service, Discord, or Roblox.</li>
+                    <li>To comply with the Terms of Service of both Discord and Roblox at all times.</li>
+                    <li>That failure to comply with these Terms or the guidelines of our Server may result in your removal from the Server as well as any BlueDev groups and games alongside a ban from using the Service.</li>
+                </ul>
+
+                <h3>3. Third-Party Services</h3>
+                <p>The Service interacts with third-party platforms, specifically Discord and Roblox. We are not affiliated with, endorsed by, or sponsored by Discord Inc. or Roblox Corporation. Your use of those platforms is governed by their respective terms of service and privacy policies.</p>
+
+                <h3>4. Disclaimers and Limitation of Liability</h3>
+                <p>The Service is provided on an "as-is" and "as-available" basis. We do not guarantee that the Service will be uninterrupted, error-free, or secure.</p>
+                <p>To the fullest extent permitted by law, the creators and maintainers of this Service shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the Service.</p>
+
+                <h3>5. Termination</h3>
+                <p>You may stop using the Service at any time by leaving our Server. We reserve the right to suspend or terminate your access to the Service and remove you from our Server for any violation of these Terms or our Server rules, without prior notice.</p>
+
+                <h3>6. Changes to the Terms</h3>
+                <p>We may update these Terms from time to time. We will announce significant changes within the Server, but we encourage you to review this document periodically. Your continued use of the Service after any changes constitutes your acceptance of the new Terms.</p>
+
+                <h3>7. Contact Us</h3>
+                <p>If you have any questions about these Terms, please contact us via #support in the Server.</p>
+            </div>
+
+            <!-- Privacy Policy Content -->
+            <div id="privacy" class="prose max-w-none hidden">
+                <h1>Privacy Policy for Blue Admin</h1>
+                <p><strong>Last Updated: July 2nd, 2025</strong></p>
+                <p>This Privacy Policy explains how we collect, use, and protect your information when you use our Roblox verification service ("the Service") within our Discord server ("the Server"). By joining our Server and using the Service, you consent to the data practices described in this policy.</p>
+                
+                <h3>1. Information We Collect</h3>
+                <p>To provide our Service, we collect and store certain information from both Discord and Roblox.</p>
+                <ul>
+                    <li><strong>Information from Discord:</strong>
+                        <ul>
+                            <li><strong>Your Discord User ID:</strong> To uniquely identify you and link you to your verified Roblox account.</li>
+                            <li><strong>Your Discord Username & Server Nickname:</strong> To identify you for use with other commands subject but not limited to administrative commands.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Information from Roblox (via their public Open Cloud API):</strong>
+                        <ul>
+                            <li><strong>Your Roblox User ID:</strong> Provided by you during the verification process.</li>
+                            <li><strong>Your Roblox Username & Display Name:</strong> To set your nickname in our Server.</li>
+                            <li><strong>Your Roblox Group Memberships & Ranks:</strong> To sync your Roblox group roles with your roles in our Server.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>We do not collect or store your Roblox password or any other sensitive account credentials. The verification process does not require you to provide a password. The information you share with us is visible to you and not released until your confirmation.</p>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>The information we collect is used exclusively to provide the Service's core functionality within our Server:</p>
+                <ul>
+                    <li><strong>To Verify Your Identity:</strong> We link your Discord ID with your Roblox ID to confirm you own the account.</li>
+                    <li><strong>To Manage Your Roles:</strong> We use your Roblox group data to automatically assign and update your roles within our Server.</li>
+                    <li><strong>To Manage Your Nickname:</strong> We use your Roblox username and display name to set and update your nickname within our Server.</li>
+                    <li><strong>To Maintain and Improve the Service:</strong> We may use aggregated, anonymous data to monitor usage and improve the Service.</li>
+                </ul>
+
+                <h3>3. Data Storage and Security</h3>
+                <p>We take the security of your data seriously. All collected information is stored in a secure codebase. We implement reasonable administrative and technical safeguards to protect your information from unauthorized access, loss, or misuse.</p>
+
+                <h3>4. Data Sharing</h3>
+                <p>We do not sell, trade, or rent your information to third parties. Your data is only used for the purposes described in this policy. All members of our Server can see your Roblox display name and username for identification purposes. The staff of our Server can see further information outlined in this policy as it is necessary to operate and moderate the Server and Service.</p>
+
+                <h3>5. Data Retention and Deletion</h3>
+                <p>We retain your information for as long as you are a member of our Discord Server. If you leave the Server, your associated data may be deleted from our active codebase. You have the right to request the deletion of your personal data by contacting us via #support in the Server.</p>
+
+                <h3>6. Changes to this Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will announce changes in the Server. Your continued use of the Service after any changes constitutes your acceptance of the new policy.</p>
+
+                <h3>7. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy or wish to request data deletion, please contact us via #support in the Server.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const tosContent = document.getElementById('tos');
+            const privacyContent = document.getElementById('privacy');
+            const tosTab = document.getElementById('tos-tab');
+            const privacyTab = document.getElementById('privacy-tab');
+
+            // Base classes for any tab
+            const baseClasses = "w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm";
+            
+            // Classes for the active tab
+            const activeStyle = "color: #76b1ff; border-color: #76b1ff;";
+
+            // Classes for the inactive tab
+            const inactiveClasses = "text-gray-400 border-transparent hover:text-white hover:border-gray-600";
+
+            if (tabName === 'tos') {
+                tosContent.classList.remove('hidden');
+                privacyContent.classList.add('hidden');
+
+                tosTab.className = baseClasses;
+                tosTab.style.cssText = activeStyle;
+                
+                privacyTab.className = `${baseClasses} ${inactiveClasses}`;
+                privacyTab.style.cssText = "";
+
+            } else {
+                privacyContent.classList.remove('hidden');
+                tosContent.classList.add('hidden');
+                
+                privacyTab.className = baseClasses;
+                privacyTab.style.cssText = activeStyle;
+
+                tosTab.className = `${baseClasses} ${inactiveClasses}`;
+                tosTab.style.cssText = "";
+            }
+        }
+    </script>
+</body>
+</html>
