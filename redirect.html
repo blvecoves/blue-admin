@@ -31,7 +31,7 @@
 
     <div class="text-center max-w-lg mx-auto p-8">
         <header class="mb-8">
-            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev!</h1>
+            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1>
             <p class="text-lg text-gray-400 mt-4" id="welcomeMessage">Loading your Roblox profile...</p>
         </header>
 
@@ -70,6 +70,10 @@
                 <p>If you are having trouble verifying, please contact us via #support on the Discord server.</p>
                 <p class="mt-2">
                     <a href="index.html" class="text-blue-400 hover:underline">Restart Verification Process</a>
+                    <span class="mx-2">|</span>
+                    <a href="legal.html#tos" class="text-blue-400 hover:underline">Terms of Service</a>
+                    <span class="mx-2">|</span>
+                    <a href="legal.html#privacy" class="text-blue-400 hover:underline">Privacy Policy</a>
                 </p>
             </footer>
 
@@ -94,7 +98,7 @@
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
             const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
-            const CLIENT_SECRET = RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
 
             if (authCode) {
@@ -118,7 +122,7 @@
 
                     if (!tokenResponse.ok) {
                         const errorData = await tokenResponse.json();
-                        throw new Error(`Token exchange failed: ${errorData.error_description || tokenResponse.statusText}`);
+                        throw new Error(`Token exchange failed: ${errorData.error_description || tokenResponse.statusText}. Check client ID, secret, and redirect URI.`);
                     }
 
                     const tokenData = await tokenResponse.json();
@@ -136,7 +140,7 @@
 
                     if (!userInfoResponse.ok) {
                         const errorData = await userInfoResponse.json();
-                        throw new Error(`User info fetch failed: ${errorData.error_description || userInfoResponse.statusText}`);
+                        throw new Error(`User info fetch failed: ${errorData.error_description || userInfoResponse.statusText}. Check OAuth2 scopes.`);
                     }
 
                     const userData = await userInfoResponse.json();
@@ -157,7 +161,7 @@
 
                 } catch (error) {
                     console.error("Error during Roblox OAuth process:", error);
-                    statusMessage.textContent = `Error during verification: ${error.message}. Please try again.`;
+                    statusMessage.textContent = `Error during verification: ${error.message}. Please ensure your CLIENT_ID, CLIENT_SECRET, and REDIRECT_URI are correctly set in the code and in your Roblox OAuth2 application settings. Also, check your browser's console for more details.`;
                     statusMessage.classList.remove('text-gray-400');
                     statusMessage.classList.add('text-red-400');
                 }
