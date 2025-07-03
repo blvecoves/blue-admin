@@ -65,6 +65,11 @@
                 Verify and Continue
             </button>
 
+            <!-- Unauthorized Access Message -->
+            <p id="unauthorizedMessage" class="text-red-400 text-sm mt-4 hidden">
+                You're not authorized to access admin pages. If you believe this was a mistake, please contact support via the Discord server.
+            </p>
+
             <!-- Footer with support and restart link -->
             <footer class="mt-8 text-gray-400 text-sm">
                 <p>If you are having trouble verifying, please contact us via #support on the Discord server.</p>
@@ -77,10 +82,10 @@
                 </p>
             </footer>
 
-            <!-- Confirmation Message -->
-            <p id="confirmationMessage" class="text-green-400 text-xl font-semibold mt-8 hidden">
+            <!-- Confirmation Message (Removed as per request) -->
+            <!-- <p id="confirmationMessage" class="text-green-400 text-xl font-semibold mt-8 hidden">
                 Verification Confirmed! You can now close this page.
-            </p>
+            </p> -->
         </main>
     </div>
 
@@ -91,15 +96,18 @@
             const statusMessage = document.getElementById('statusMessage');
             const userInfoDiv = document.getElementById('userInfo');
             const verifyButton = document.getElementById('verifyButton');
-            const confirmationMessage = document.getElementById('confirmationMessage');
+            const unauthorizedMessage = document.getElementById('unauthorizedMessage'); // Get the new message element
             const welcomeMessage = document.getElementById('welcomeMessage');
 
             // ⚠️⚠️⚠️ SECURITY WARNING: NEVER DO THIS IN PRODUCTION ⚠️⚠️⚠️
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
-            const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
-            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const CLIENT_ID = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
+            const CLIENT_SECRET = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
+
+            // Hide the unauthorized message by default
+            unauthorizedMessage.classList.add('hidden');
 
             if (authCode) {
                 statusMessage.textContent = "Authorization code received. Exchanging for access token...";
@@ -164,31 +172,33 @@
                     statusMessage.textContent = `Error during verification: ${error.message}. Please ensure your CLIENT_ID, CLIENT_SECRET, and REDIRECT_URI are correctly set in the code and in your Roblox OAuth2 application settings. Also, check your browser's console for more details.`;
                     statusMessage.classList.remove('text-gray-400');
                     statusMessage.classList.add('text-red-400');
+                    // Show the unauthorized message if there's an error in fetching data
+                    unauthorizedMessage.classList.remove('hidden');
                 }
 
             } else {
                 statusMessage.textContent = "Error: No authorization code found in URL. Please ensure you came from the Roblox verification process.";
                 statusMessage.classList.remove('text-gray-400');
                 statusMessage.classList.add('text-red-400');
+                // Show the unauthorized message if no auth code is found
+                unauthorizedMessage.classList.remove('hidden');
             }
         });
 
         function confirmVerification() {
             const verifyButton = document.getElementById('verifyButton');
-            const confirmationMessage = document.getElementById('confirmationMessage');
+            const unauthorizedMessage = document.getElementById('unauthorizedMessage'); // Get the message element again
             const statusMessage = document.getElementById('statusMessage');
 
             console.log("User confirmed verification!");
 
+            // Here, you would typically perform a backend check for admin authorization
+            // For this frontend-only test, we'll just show the unauthorized message
+            // and disable the button.
             verifyButton.disabled = true; // Disable button after click
             verifyButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled
-            confirmationMessage.classList.remove('hidden'); // Show confirmation message
+            unauthorizedMessage.classList.remove('hidden'); // Show the unauthorized message
             statusMessage.classList.add('hidden'); // Ensure status message is hidden
-
-            // Optional: Redirect back to Discord or a success page after a short delay
-            // setTimeout(() => {
-            //     window.location.href = "https://discord.com/channels/YOUR_SERVER_ID/YOUR_CHANNEL_ID";
-            // }, 3000);
         }
     </script>
 </body>
