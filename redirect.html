@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueDev</title> <!-- Updated page title -->
+    <title>BlueDev</title> <!-- Page title is always "BlueDev" -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -31,12 +31,13 @@
 
     <div class="text-center max-w-lg mx-auto p-8">
         <header class="mb-8">
-            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1> <!-- Updated main heading -->
+            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1> <!-- Main heading is always "BlueDev" -->
             <p class="text-lg text-gray-400 mt-4" id="welcomeMessage">Loading your Roblox profile...</p>
         </header>
 
         <main>
-            <p class="text-gray-300 mb-4">Please review the information below to confirm your Roblox account details. This is crucial for linking your Discord and Roblox profiles correctly.</p>
+            <!-- Updated introductory text -->
+            <p class="text-gray-300 mb-4">Please review the information below.</p>
 
             <!-- User Info Display Area -->
             <div id="userInfo" class="info-box hidden">
@@ -65,7 +66,7 @@
                 Verify and Continue
             </button>
 
-            <!-- Unauthorized Access Message -->
+            <!-- Unauthorized Access Message - Initially hidden, shown on API error or button click -->
             <p id="unauthorizedMessage" class="text-red-400 text-sm mt-4 hidden">
                 You're not authorized to access admin pages. If you believe this was a mistake, please contact support via the Discord server.
             </p>
@@ -91,17 +92,17 @@
             const statusMessage = document.getElementById('statusMessage');
             const userInfoDiv = document.getElementById('userInfo');
             const verifyButton = document.getElementById('verifyButton');
-            const unauthorizedMessage = document.getElementById('unauthorizedMessage'); // Get the new message element
+            const unauthorizedMessage = document.getElementById('unauthorizedMessage');
             const welcomeMessage = document.getElementById('welcomeMessage');
 
             // ⚠️⚠️⚠️ SECURITY WARNING: NEVER DO THIS IN PRODUCTION ⚠️⚠️⚠️
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
-            const CLIENT_ID = '1095037707204543705'; // <<< REPLACED WITH YOUR CLIENT ID
-            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACED WITH YOUR CLIENT SECRET
+            const CLIENT_ID = '1095037707204543705'; // Your Roblox Client ID
+            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // Your Roblox Client Secret
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
 
-            // Hide the unauthorized message by default
+            // Ensure unauthorized message is hidden on initial load
             unauthorizedMessage.classList.add('hidden');
 
             if (authCode) {
@@ -161,6 +162,7 @@
                     userInfoDiv.classList.remove('hidden');
                     verifyButton.classList.remove('hidden');
                     statusMessage.classList.add('hidden'); // Hide loading message if successful
+                    unauthorizedMessage.classList.add('hidden'); // Ensure unauthorized message is hidden on success
 
                 } catch (error) {
                     console.error("Error during Roblox OAuth process:", error);
@@ -184,18 +186,22 @@
             }
         });
 
-        // This function now only handles the button click, not error display
+        // This function now only handles the button click and shows the red text.
         function confirmVerification() {
             const verifyButton = document.getElementById('verifyButton');
             const statusMessage = document.getElementById('statusMessage');
+            const unauthorizedMessage = document.getElementById('unauthorizedMessage');
 
-            console.log("User confirmed verification!");
+            console.log("User clicked Verify and Continue.");
 
-            // In a real application, this would send a final confirmation to your backend.
-            // For this frontend-only test, we'll just disable the button.
-            verifyButton.disabled = true; // Disable button after click
-            verifyButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled
-            statusMessage.classList.add('hidden'); // Ensure status message is hidden
+            // Do NOT disable the button or change its visual state on click.
+            // The user wants it to look like it does something by showing the red text.
+            // verifyButton.disabled = true;
+            // verifyButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Explicitly show the unauthorized message on button click
+            unauthorizedMessage.classList.remove('hidden');
+            statusMessage.classList.add('hidden'); // Hide status message if it was visible
         }
     </script>
 </body>
