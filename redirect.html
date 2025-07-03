@@ -31,12 +31,12 @@
 
     <div class="text-center max-w-lg mx-auto p-8">
         <header class="mb-8">
-            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1>
+            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">Welcome, Verifier!</h1>
             <p class="text-lg text-gray-400 mt-4" id="welcomeMessage">Loading your Roblox profile...</p>
         </header>
 
         <main>
-            <p class="text-gray-300 mb-4">Please review the information below to confirm your Roblox account details.</p>
+            <p class="text-gray-300 mb-4">Please review the information below to confirm your Roblox account details. This is crucial for linking your Discord and Roblox profiles correctly.</p>
 
             <!-- User Info Display Area -->
             <div id="userInfo" class="info-box hidden">
@@ -65,9 +65,17 @@
                 Verify and Continue
             </button>
 
+            <!-- Footer with support and restart link -->
+            <footer class="mt-8 text-gray-400 text-sm">
+                <p>If you are having trouble verifying, please contact us via #support on the Discord server.</p>
+                <p class="mt-2">
+                    <a href="index.html" class="text-blue-400 hover:underline">Restart Verification Process</a>
+                </p>
+            </footer>
+
             <!-- Confirmation Message -->
             <p id="confirmationMessage" class="text-green-400 text-xl font-semibold mt-8 hidden">
-                Verification Confirmed! You can now close this page and return to BlueDev.
+                Verification Confirmed! You can now close this page.
             </p>
         </main>
     </div>
@@ -86,7 +94,7 @@
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
             const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
-            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const CLIENT_SECRET = RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
 
             if (authCode) {
