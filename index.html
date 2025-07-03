@@ -6,7 +6,6 @@
     <title>Blue Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font: Montserrat, consistent with previous pages -->
-    <!-- Placeholder comment -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -28,7 +27,8 @@
             <p class="text-gray-300 mb-8">Click the button below to start your Roblox account verification process.</p>
             <!-- Button to redirect to the Roblox OAuth2 authorization page -->
             <!-- Client ID, scopes, redirect URI, and state are now filled in -->
-            <a href="https://apis.roblox.com/oauth/v1/authorize?client_id=1095037707204543705&response_type=code&scope=openid,profile&redirect_uri=https://blvecoves.github.io/blue-admin/redirect.html&state=lG1jB2gzf4CYh6vE0ArqRQ"
+            <!-- Updated: Scopes are now space-separated and URL-encoded (%20) as per OAuth2 standards. -->
+            <a href="https://apis.roblox.com/oauth/v1/authorize?client_id=1095037707204543705&response_type=code&scope=openid%20profile&redirect_uri=https://blvecoves.github.io/blue-admin/redirect.html&state=lG1jB2gzf4CYh6vE0ArqRQ"
                class="inline-block px-8 py-4 text-lg font-semibold rounded-lg bg-blue-400 text-gray-900 hover:bg-blue-500 transition-colors duration-200">
                 Start Verification
             </a>
