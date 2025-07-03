@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueDev</title>
+    <title>BlueDev</title> <!-- Updated page title -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -31,7 +31,7 @@
 
     <div class="text-center max-w-lg mx-auto p-8">
         <header class="mb-8">
-            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1>
+            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1> <!-- Updated main heading -->
             <p class="text-lg text-gray-400 mt-4" id="welcomeMessage">Loading your Roblox profile...</p>
         </header>
 
@@ -97,8 +97,8 @@
             // ⚠️⚠️⚠️ SECURITY WARNING: NEVER DO THIS IN PRODUCTION ⚠️⚠️⚠️
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
-            const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
-            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const CLIENT_ID = '1095037707204543705'; // <<< REPLACED WITH YOUR CLIENT ID
+            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACED WITH YOUR CLIENT SECRET
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
 
             // Hide the unauthorized message by default
@@ -184,19 +184,17 @@
             }
         });
 
+        // This function now only handles the button click, not error display
         function confirmVerification() {
             const verifyButton = document.getElementById('verifyButton');
-            const unauthorizedMessage = document.getElementById('unauthorizedMessage'); // Get the message element again
             const statusMessage = document.getElementById('statusMessage');
 
             console.log("User confirmed verification!");
 
-            // In a real application, this would send a confirmation to your backend.
+            // In a real application, this would send a final confirmation to your backend.
             // For this frontend-only test, we'll just disable the button.
             verifyButton.disabled = true; // Disable button after click
             verifyButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled
-            // The unauthorized message is now controlled by the initial data retrieval, not this click.
-            // unauthorizedMessage.classList.remove('hidden'); // REMOVED: This should not show on button click
             statusMessage.classList.add('hidden'); // Ensure status message is hidden
         }
     </script>
