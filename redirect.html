@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueDev</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #161616; /* Dark background */
+            color: #FFFFFF; /* White text */
+        }
+        .info-box {
+            background-color: #212121;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .info-item {
+            margin-bottom: 0.75rem;
+        }
+        .info-item strong {
+            color: #76b1ff;
+        }
+    </style>
+</head>
+<body class="antialiased flex items-center justify-center min-h-screen">
 
+    <div class="text-center max-w-lg mx-auto p-8">
+        <header class="mb-8">
+            <h1 class="text-5xl font-extrabold" style="color: #76b1ff;">BlueDev</h1>
+            <p class="text-lg text-gray-400 mt-4" id="welcomeMessage">Loading your Roblox profile...</p>
+        </header>
+
+        <main>
+            <p class="text-gray-300 mb-4">Please review the information below to confirm your Roblox account details.</p>
+
+            <!-- User Info Display Area -->
+            <div id="userInfo" class="info-box hidden">
+                <h3 class="text-2xl font-bold text-white mb-4">Your Roblox Profile Information:</h3>
+                <div class="info-item">
+                    <strong>Roblox User ID:</strong> <span id="robloxUserId"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Roblox Username:</strong> <span id="robloxUsername"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Roblox Display Name:</strong> <span id="robloxDisplayName"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Account Verified:</strong> <span id="robloxAccountVerified" class="text-green-400">Yes</span>
+                </div>
+            </div>
+
+            <!-- Loading/Error Message -->
+            <p id="statusMessage" class="text-gray-400 mt-4">Attempting to retrieve Roblox data...</p>
+
+            <!-- Verification Button -->
+            <button id="verifyButton"
+                    class="mt-8 px-8 py-4 text-lg font-semibold rounded-lg bg-blue-400 text-gray-900 hover:bg-blue-500 transition-colors duration-200 hidden"
+                    onclick="confirmVerification()">
+                Verify and Continue
+            </button>
+
+            <!-- Confirmation Message -->
+            <p id="confirmationMessage" class="text-green-400 text-xl font-semibold mt-8 hidden">
+                Verification Confirmed! You can now close this page.
+            </p>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const authCode = urlParams.get('code'); // This is the authorization code from Roblox OAuth2
+            const statusMessage = document.getElementById('statusMessage');
+            const userInfoDiv = document.getElementById('userInfo');
+            const verifyButton = document.getElementById('verifyButton');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+
+            // ⚠️⚠️⚠️ SECURITY WARNING: NEVER DO THIS IN PRODUCTION ⚠️⚠️⚠️
+            // These values should ALWAYS be stored and used on a secure backend server.
+            // This is for TESTING PURPOSES ONLY as per user's explicit request.
+            const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
+            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
+
+            if (authCode) {
+                statusMessage.textContent = "Authorization code received. Exchanging for access token...";
+
+                try {
+                    // Step 1: Exchange authorization code for access token
+                    const tokenResponse = await fetch('https://apis.roblox.com/oauth/v1/token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            client_id: CLIENT_ID,
+                            client_secret: CLIENT_SECRET,
+                            code: authCode,
+                            grant_type: 'authorization_code',
+                            redirect_uri: REDIRECT_URI
+                        }).toString()
+                    });
+
+                    if (!tokenResponse.ok) {
+                        const errorData = await tokenResponse.json();
+                        throw new Error(`Token exchange failed: ${errorData.error_description || tokenResponse.statusText}`);
+                    }
+
+                    const tokenData = await tokenResponse.json();
+                    const accessToken = tokenData.access_token;
+
+                    statusMessage.textContent = "Access token received. Fetching user profile...";
+
+                    // Step 2: Use access token to fetch user profile information
+                    const userInfoResponse = await fetch('https://apis.roblox.com/oauth/v1/userinfo', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    });
+
+                    if (!userInfoResponse.ok) {
+                        const errorData = await userInfoResponse.json();
+                        throw new Error(`User info fetch failed: ${errorData.error_description || userInfoResponse.statusText}`);
+                    }
+
+                    const userData = await userInfoResponse.json();
+
+                    // Populate the HTML elements with actual user data
+                    document.getElementById('robloxUserId').textContent = userData.sub || 'N/A'; // 'sub' is the user ID in OpenID Connect
+                    document.getElementById('robloxUsername').textContent = userData.preferred_username || 'N/A';
+                    document.getElementById('robloxDisplayName').textContent = userData.name || 'N/A';
+                    document.getElementById('robloxAccountVerified').textContent = 'Yes'; // Assuming successful OAuth implies verified
+                    document.getElementById('robloxAccountVerified').classList.remove('text-red-400');
+                    document.getElementById('robloxAccountVerified').classList.add('text-green-400');
+
+
+                    welcomeMessage.textContent = `Welcome, ${userData.name || userData.preferred_username || 'Verifier'}!`;
+                    userInfoDiv.classList.remove('hidden');
+                    verifyButton.classList.remove('hidden');
+                    statusMessage.classList.add('hidden'); // Hide loading message
+
+                } catch (error) {
+                    console.error("Error during Roblox OAuth process:", error);
+                    statusMessage.textContent = `Error during verification: ${error.message}. Please try again.`;
+                    statusMessage.classList.remove('text-gray-400');
+                    statusMessage.classList.add('text-red-400');
+                }
+
+            } else {
+                statusMessage.textContent = "Error: No authorization code found in URL. Please ensure you came from the Roblox verification process.";
+                statusMessage.classList.remove('text-gray-400');
+                statusMessage.classList.add('text-red-400');
+            }
+        });
+
+        function confirmVerification() {
+            const verifyButton = document.getElementById('verifyButton');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const statusMessage = document.getElementById('statusMessage');
+
+            console.log("User confirmed verification!");
+
+            verifyButton.disabled = true; // Disable button after click
+            verifyButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled
+            confirmationMessage.classList.remove('hidden'); // Show confirmation message
+            statusMessage.classList.add('hidden'); // Ensure status message is hidden
+
+            // Optional: Redirect back to Discord or a success page after a short delay
+            // setTimeout(() => {
+            //     window.location.href = "https://discord.com/channels/YOUR_SERVER_ID/YOUR_CHANNEL_ID";
+            // }, 3000);
+        }
+    </script>
+</body>
+</html>
