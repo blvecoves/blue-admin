@@ -81,11 +81,6 @@
                     <a href="legal.html#privacy" class="text-blue-400 hover:underline">Privacy Policy</a>
                 </p>
             </footer>
-
-            <!-- Confirmation Message (Removed as per request) -->
-            <!-- <p id="confirmationMessage" class="text-green-400 text-xl font-semibold mt-8 hidden">
-                Verification Confirmed! You can now close this page.
-            </p> -->
         </main>
     </div>
 
@@ -102,8 +97,8 @@
             // ⚠️⚠️⚠️ SECURITY WARNING: NEVER DO THIS IN PRODUCTION ⚠️⚠️⚠️
             // These values should ALWAYS be stored and used on a secure backend server.
             // This is for TESTING PURPOSES ONLY as per user's explicit request.
-            const CLIENT_ID = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
-            const CLIENT_SECRET = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
+            const CLIENT_ID = '1095037707204543705'; // <<< REPLACE WITH YOUR ROBLOX CLIENT ID
+            const CLIENT_SECRET = 'RBX-fY-PdfPyJEOZv0KeD2N8Pt7wByg-EW_Bhyt3gNGKnItG_iu-mekqjTfdfYHJ33tX'; // <<< REPLACE WITH YOUR ROBLOX CLIENT SECRET
             const REDIRECT_URI = 'https://blvecoves.github.io/blue-admin/redirect.html'; // Your GitHub Pages redirect URL
 
             // Hide the unauthorized message by default
@@ -165,7 +160,7 @@
                     welcomeMessage.textContent = `Welcome, ${userData.name || userData.preferred_username || 'Verifier'}!`;
                     userInfoDiv.classList.remove('hidden');
                     verifyButton.classList.remove('hidden');
-                    statusMessage.classList.add('hidden'); // Hide loading message
+                    statusMessage.classList.add('hidden'); // Hide loading message if successful
 
                 } catch (error) {
                     console.error("Error during Roblox OAuth process:", error);
@@ -174,6 +169,8 @@
                     statusMessage.classList.add('text-red-400');
                     // Show the unauthorized message if there's an error in fetching data
                     unauthorizedMessage.classList.remove('hidden');
+                    verifyButton.classList.add('hidden'); // Ensure button is hidden on error
+                    userInfoDiv.classList.add('hidden'); // Ensure user info is hidden on error
                 }
 
             } else {
@@ -182,6 +179,8 @@
                 statusMessage.classList.add('text-red-400');
                 // Show the unauthorized message if no auth code is found
                 unauthorizedMessage.classList.remove('hidden');
+                verifyButton.classList.add('hidden'); // Ensure button is hidden
+                userInfoDiv.classList.add('hidden'); // Ensure user info is hidden
             }
         });
 
@@ -192,12 +191,12 @@
 
             console.log("User confirmed verification!");
 
-            // Here, you would typically perform a backend check for admin authorization
-            // For this frontend-only test, we'll just show the unauthorized message
-            // and disable the button.
+            // In a real application, this would send a confirmation to your backend.
+            // For this frontend-only test, we'll just disable the button.
             verifyButton.disabled = true; // Disable button after click
             verifyButton.classList.add('opacity-50', 'cursor-not-allowed'); // Visually indicate disabled
-            unauthorizedMessage.classList.remove('hidden'); // Show the unauthorized message
+            // The unauthorized message is now controlled by the initial data retrieval, not this click.
+            // unauthorizedMessage.classList.remove('hidden'); // REMOVED: This should not show on button click
             statusMessage.classList.add('hidden'); // Ensure status message is hidden
         }
     </script>
